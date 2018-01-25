@@ -43,10 +43,14 @@ if ( ! function_exists( 'cafinitywp_setup' ) ) :
 		add_theme_support( 'post-thumbnails' );
 
 		// This theme uses wp_nav_menu() in one location.
-		register_nav_menus( array(
-			'menu-1' => esc_html__( 'Primary', 'cafinitywp' ),
-		) );
+		  // Navigation Menus
+  register_nav_menus(array(
+    'navbar' => __( 'Navbar Menu'),
+    'footer1' => __( 'Footer #1 Column'),
+    'footer2' => __( 'Footer #2 Column'),
+    'footer3' => __( 'Footer #3 Column')
 
+    ));
 		/*
 		 * Switch default core markup for search form, comment form, and comments
 		 * to output valid HTML5.
@@ -117,23 +121,30 @@ add_action( 'widgets_init', 'cafinitywp_widgets_init' );
  * Enqueue scripts and styles.
  */
 function cafinitywp_scripts() {
-	wp_enqueue_style( 'cafinitywp-style', get_stylesheet_uri() );
+
+wp_enqueue_style( 'cafinitywp-material-icons', '//fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons', array(), '1.0.0' );
+
+	wp_enqueue_style( 'cafinitywp-style', get_stylesheet_directory_uri() . '/style.min.css', array(), '1.0.0' );
 
 	wp_enqueue_script( 'cafinitywp-js', get_template_directory_uri() . '/js/dist/scripts.min.js', array('jquery'), '1.0.0', true );
 
-	wp_enqueue_script( 'cafinitywp-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 
+
+        wp_enqueue_style( 'cafinitywp-Bootstrap_css', get_template_directory_uri() . 'node_modules/bootstrap/dist/css/bootstrap.min.css' );
+        wp_enqueue_style( 'cafinitywp-bootstrap-material-design', get_template_directory_uri() . 'node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.min.css' );
+        wp_enqueue_script( 'cafinitywp-jQuery', get_template_directory_uri() . '/js/jquery-3.1.1.min.js', array(), '2.2.3', true );
+    
+
+
+	
+	
 	wp_enqueue_script( 'cafinitywp-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
-
-
-
-
-
 }
+
 add_action( 'wp_enqueue_scripts', 'cafinitywp_scripts' );
 
 /**
@@ -155,6 +166,10 @@ require get_template_directory() . '/inc/template-functions.php';
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
+/**
+ * Bootstrap Navwalker.
+ */
+require get_template_directory() . '/inc/mdb_bootstrap_navwalker.php';
 
 /**
  * Load Jetpack compatibility file.

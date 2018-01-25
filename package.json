@@ -22,7 +22,9 @@
     "gulp-watch": "^4.2.4",
     "gulp-zip": "^3.2.0",
     "jshint-stylish": "^1.0.2",
+    "node-sass-tilde-importer": "^1.0.0",
     "popper.js": "^1.13.0"
-  }
+    },
+  "dependencies": {}
 }
 

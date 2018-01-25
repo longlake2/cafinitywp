@@ -9,6 +9,7 @@ var gulp = require( 'gulp' ),
   rename = require( 'gulp-rename' ),
   notify = require( 'gulp-notify' ),
   include = require( 'gulp-include' ),
+  tildeImporter = require('node-sass-tilde-importer'),
   sass = require( 'gulp-sass' ),
   imageoptim = require('gulp-imageoptim'),
   browserSync = require('browser-sync').create(),
@@ -30,7 +31,7 @@ var browserSyncWatchFiles = [
 // see: https://www.browsersync.io/docs/options/
 var browserSyncOptions = {
     watchTask: true,
-    proxy: "http://websites-dev.local/"
+    proxy: "http://websites-dev.local/",
 }
  
 // Default error handler
@@ -52,8 +53,8 @@ gulp.task('zip', function () {
    './sass/**/*',
    './template-parts/*',
    './templates/*',
-   // '!bower_components',
-    '!node_modules',
+   '!bower_components',
+   '!node_modules',
   ], {base: "."})
   .pipe(zip('cafinitywp.zip'))
   .pipe(gulp.dest('.'));
@@ -92,9 +93,10 @@ options.sass = {
   errLogToConsole: true,
   precision: 8,
   noCache: true,
+  importer: tildeImporter,
   //imagePath: 'assets/img',
   includePaths: [
-    config.nodeDir + '/bootstrap/scss',
+    config.nodeDir + '/bootstrap-material-design/scss',
   ]
 };
 
@@ -102,10 +104,11 @@ options.sassmin = {
   errLogToConsole: true,
   precision: 8,
   noCache: true,
+  importer: tildeImporter,
   outputStyle: 'compressed',
   //imagePath: 'assets/img',
   includePaths: [
-    config.nodeDir + '/bootstrap/scss',
+    config.nodeDir + '/bootstrap-material-design/scss',
   ]
 };
 
@@ -178,7 +181,7 @@ gulp.task( 'watch', function() {
 
   gulp.watch( './images/**/*', ['images']);
  
-  gulp.watch( './**/*.php' ).on('change', browserSync.reload);
+  //gulp.watch( './**/*.php' ).on('change', browserSync.reload);
    
 } );
  
