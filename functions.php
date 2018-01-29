@@ -51,6 +51,7 @@ if ( ! function_exists( 'cafinitywp_setup' ) ) :
     'footer3' => __( 'Footer #3 Column')
 
     ));
+
 		/*
 		 * Switch default core markup for search form, comment form, and comments
 		 * to output valid HTML5.
@@ -77,15 +78,44 @@ if ( ! function_exists( 'cafinitywp_setup' ) ) :
 		 *
 		 * @link https://codex.wordpress.org/Theme_Logo
 		 */
-		add_theme_support( 'custom-logo', array(
-			'height'      => 250,
-			'width'       => 250,
-			'flex-width'  => true,
-			'flex-height' => true,
-		) );
+		// add_theme_support( 'custom-logo', array(
+		// 	'height'      => 250,
+		// 	'width'       => 250,
+		// 	'flex-width'  => true,
+		// 	'flex-height' => true,
+		// ) );
 	}
+
 endif;
 add_action( 'after_setup_theme', 'cafinitywp_setup' );
+
+function themename_custom_logo_setup() {
+    $defaults = array(
+        'height'      => 200,
+        'width'       => 200,
+        'flex-height' => true,
+        'flex-width'  => true,
+        'header-text' => array( 'site-title', 'site-description' ),
+    );
+    add_theme_support( 'custom-logo', $defaults );
+}
+add_action( 'after_setup_theme', 'themename_custom_logo_setup' );
+
+
+/**
+ * Setup Theme
+ */
+function cafinitywp_setup() {
+  // Navigation Menus
+  register_nav_menus(array(
+    'navbar' => __( 'Navbar Menu')
+    ));
+  // Add featured image support
+    add_theme_support('post-thumbnails');
+    add_image_size('main-full', 1078, 516, false); // main post image in full width
+  }
+  add_action('after_setup_theme', 'cafinitywp_setup');
+
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -99,41 +129,24 @@ function cafinitywp_content_width() {
 }
 add_action( 'after_setup_theme', 'cafinitywp_content_width', 0 );
 
-/**
- * Register widget area.
- *
- * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
- */
-function cafinitywp_widgets_init() {
-	register_sidebar( array(
-		'name'          => esc_html__( 'Sidebar', 'cafinitywp' ),
-		'id'            => 'sidebar-1',
-		'description'   => esc_html__( 'Add widgets here.', 'cafinitywp' ),
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
-	) );
-}
-add_action( 'widgets_init', 'cafinitywp_widgets_init' );
 
 /**
  * Enqueue scripts and styles.
  */
-function cafinitywp_scripts() {
+	function cafinitywp_scripts() {
 
-wp_enqueue_style( 'cafinitywp-material-icons', '//fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons', array(), '1.0.0' );
+	wp_enqueue_style( 'cafinitywp-material-icons', '//fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons', array(), '1.0.0' );
 
-	wp_enqueue_style( 'cafinitywp-style', get_stylesheet_directory_uri() . '/style.min.css', array(), '1.0.0' );
+		wp_enqueue_style( 'cafinitywp-style', get_stylesheet_directory_uri() . '/style.min.css', array(), '1.0.0' );
 
-	wp_enqueue_script( 'cafinitywp-js', get_template_directory_uri() . '/js/dist/scripts.min.js', array('jquery'), '1.0.0', true );
+		wp_enqueue_script( 'cafinitywp-js', get_template_directory_uri() . '/js/dist/scripts.min.js', array('jquery'), '1.0.0', true );
 
 
 
-        wp_enqueue_style( 'cafinitywp-Bootstrap_css', get_template_directory_uri() . 'node_modules/bootstrap/dist/css/bootstrap.min.css' );
-        wp_enqueue_style( 'cafinitywp-bootstrap-material-design', get_template_directory_uri() . 'node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.min.css' );
-        wp_enqueue_script( 'cafinitywp-jQuery', get_template_directory_uri() . '/js/jquery-3.1.1.min.js', array(), '2.2.3', true );
-    
+	        wp_enqueue_style( 'cafinitywp-Bootstrap_css', get_template_directory_uri() . 'node_modules/bootstrap/dist/css/bootstrap.min.css' );
+	        wp_enqueue_style( 'cafinitywp-bootstrap-material-design', get_template_directory_uri() . 'node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.min.css' );
+	        wp_enqueue_script( 'cafinitywp-jQuery', get_template_directory_uri() . '/js/jquery-3.1.1.min.js', array(), '2.2.3', true );
+	    
 
 
 	
@@ -166,10 +179,16 @@ require get_template_directory() . '/inc/template-functions.php';
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
+
 /**
  * Bootstrap Navwalker.
  */
 require get_template_directory() . '/inc/mdb_bootstrap_navwalker.php';
+
+/**
+ * Widgets
+ */
+require get_template_directory() . '/inc/widgets.php';
 
 /**
  * Load Jetpack compatibility file.

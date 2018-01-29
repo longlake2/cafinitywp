@@ -14,14 +14,24 @@
 <body>       
 <header>
     <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-light light-blue accent-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
         <div class="container">
+
+    <?php  
+            if ( has_custom_logo() ) {
+                the_custom_logo();
+            } else { ?>
+
              <a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
+             <?php } ?>
+
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
  <ul class="navbar-nav mr-auto">
   <?php
   if ( has_nav_menu( 'navbar' ) ) {
@@ -41,8 +51,10 @@
                 <form class="form-inline">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                 </form>
-            </div>
-        </div>
+
+            </div><!--collapse navbar-collapse-->
+
+        </div><!--.container-->
     </nav>
     <!--/.Navbar-->
 </header>

@@ -1,25 +1,25 @@
 <?php
 /**
- * The template for displaying all pages
+ * The main template file
  *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site may use a
- * different template.
+ * This is the most generic template file in a WordPress theme
+ * and one of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query.
+ * E.g., it puts together the home page when no home.php file exists.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
  * @package CafinityWP
  */
 
-	get_header(); ?>
+get_header(); ?>
 
 	<main id="main" class="site-main" role="main">
 	<!--Main layout-->
 	<div class="container">
-	    <div class="row col-md-8">
+	    <div class="row">
 	        <!--Main column-->
-	        <?php echo "FARTZ" ?>
+	  
 
 	            <?php
 	            if ( have_posts() ) {
@@ -51,11 +51,8 @@
 	            } // end if
 	            ?>
 	   
-	           
-	    </div>
-
-	<!--/.Main layout-->
-	</main>
+	         </div><!--.row-->  
+	    
 
 <?php
 get_sidebar();

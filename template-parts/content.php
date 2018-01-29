@@ -22,12 +22,17 @@
 		<div class="entry-meta">
 			<?php cafinitywp_posted_on(); ?>
 		</div><!-- .entry-meta -->
+
+
 		<?php
 		endif; ?>
 	</header><!-- .entry-header -->
 
-	<?php cafinitywp_post_thumbnail(); ?>
-
+	 <div class="view overlay hm-white-light z-depth-1-half">
+                    <?php the_post_thumbnail( 'full', array( 'class'=> 'img-fluid z-depth-2')); ?>
+                    <div class="mask">
+                    </div>
+                </div>
 	<div class="entry-content">
 		<?php
 			the_content( sprintf(
@@ -54,3 +59,4 @@
 		<?php cafinitywp_entry_footer(); ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->
+
